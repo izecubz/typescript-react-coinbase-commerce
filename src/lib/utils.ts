@@ -1,8 +1,20 @@
 // Source: https://stackoverflow.com/a/2117523
-export const generateUUID = () => {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-    const r = (Math.random() * 16) | 0,
-      v = c === "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
+export function generateUUID(): string {
+  if (typeof crypto !== "undefined" && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+
+  return (
+    String([1e7]) +
+    String(-1e3) +
+    String(-4e3) +
+    String(-8e3) +
+    String(-1e11)
+  ).replace(/[018]/g, (c: string) => {
+    const randomValues = crypto.getRandomValues(new Uint8Array(1));
+    return (
+      parseInt(c, 10) ^
+      (randomValues[0] & (15 >> (parseInt(c, 10) / 4)))
+    ).toString(16);
   });
-};
+}

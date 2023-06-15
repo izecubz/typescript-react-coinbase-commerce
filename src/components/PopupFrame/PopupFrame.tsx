@@ -1,34 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { generateUUID } from "../../lib/utils";
-import { MessageData } from "../../types";
+import type { MessageData } from "../../lib/types";
 
-export interface NonExclusivePopupFrameProps {
+export interface PopupFrameProps {
   checkoutId?: string;
   chargeId?: string;
   customMetadata?: string;
   onLoad: () => void;
-  onChargeSuccess: (messageData: MessageData) => void;
-  onChargeFailure: (messageData: MessageData) => void;
-  onPaymentDetected: (messageData: MessageData) => void;
+  onChargeSuccess?: (messageData: MessageData) => void;
+  onChargeFailure?: (messageData: MessageData) => void;
+  onPaymentDetected?: (messageData: MessageData) => void;
   onError: (messageData: MessageData) => void;
   onModalClose: () => void;
   disableCaching: boolean;
 }
-
-type ExclusiveProps = {
-  [K in keyof NonExclusivePopupFrameProps]: K extends "checkoutId"
-    ? NonExclusivePopupFrameProps[K] & { chargeId?: undefined }
-    : K extends "chargeId"
-    ? NonExclusivePopupFrameProps[K] & { checkoutId?: undefined }
-    : NonExclusivePopupFrameProps[K];
-};
-
-export type PopupFrameProps = ExclusiveProps & {
-  [K in Exclude<
-    keyof NonExclusivePopupFrameProps,
-    "checkoutId" | "chargeId"
-  >]?: NonExclusivePopupFrameProps[K];
-};
 
 interface SrcParams {
   origin: string;
