@@ -14,7 +14,7 @@ Install the component using your favorite package manager. The example below use
     
 ## Usage/Examples
 
-```typescript
+```typescript jsx
 // In progress
 
 function App() {
