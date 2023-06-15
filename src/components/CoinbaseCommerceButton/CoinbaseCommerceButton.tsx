@@ -64,7 +64,7 @@ export const CoinbaseCommerceButton: React.FC<CoinbaseCommerceButtonProps> = ({
   checkoutId,
   chargeId,
   onPaymentDetected,
-  disableCaching,
+  disableCaching = false,
   ...props
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
