@@ -30,4 +30,9 @@ export default defineConfig(() => ({
       minify: true,
     },
   },
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: ["./vitest.setup.ts"],
+  },
 }));
