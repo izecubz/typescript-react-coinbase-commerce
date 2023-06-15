@@ -34,25 +34,6 @@ export type CoinbaseCommerceButtonProps = Omit<
 > &
   CoinbaseCommerceButtonPropsWithExclusiveId;
 
-const getButtonProps = (props: CoinbaseCommerceButtonProps) => {
-  const buttonProps = { ...props };
-  const ignoredProps: (keyof CoinbaseCommerceButtonProps)[] = [
-    "onLoad",
-    "onChargeSuccess",
-    "onChargeFailure",
-    "customMetadata",
-    "onPaymentDetected",
-    "onModalClosed",
-    "disableCaching",
-    "wrapperStyle",
-  ];
-  ignoredProps.forEach((p) => delete buttonProps[p]);
-  return buttonProps as Omit<
-    CoinbaseCommerceButtonProps,
-    "checkoutId" | "chargeId"
-  >;
-};
-
 /*
  * The CoinbaseCommerceButton component is a wrapper around the Coinbase Commerce embeddable checkout.
  * It renders a button that, when clicked, opens a modal with the Coinbase Commerce checkout as an iframe.
@@ -78,6 +59,25 @@ export const CoinbaseCommerceButton: React.FC<CoinbaseCommerceButtonProps> = ({
     if (props.onModalClosed) {
       props.onModalClosed();
     }
+  };
+
+  const getButtonProps = (props: CoinbaseCommerceButtonProps) => {
+    const buttonProps = { ...props };
+    const ignoredProps: (keyof CoinbaseCommerceButtonProps)[] = [
+      "onLoad",
+      "onChargeSuccess",
+      "onChargeFailure",
+      "customMetadata",
+      "onPaymentDetected",
+      "onModalClosed",
+      "disableCaching",
+      "wrapperStyle",
+    ];
+    ignoredProps.forEach((p) => delete buttonProps[p]);
+    return buttonProps as Omit<
+      CoinbaseCommerceButtonProps,
+      "checkoutId" | "chargeId"
+    >;
   };
 
   /*
