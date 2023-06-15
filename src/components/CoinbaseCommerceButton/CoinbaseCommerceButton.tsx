@@ -7,13 +7,13 @@ interface CoinbaseCommerceButtonPropsNonExclusive {
   checkoutId?: string;
   chargeId?: string;
   customMetadata?: string;
-  styled: boolean;
-  onLoad: () => void;
+  styled?: boolean;
+  onLoad?: () => void;
   onChargeSuccess?: (messageData: MessageData) => void;
   onChargeFailure?: (messageData: MessageData) => void;
   onPaymentDetected?: (messageData: MessageData) => void;
   onModalClosed?: () => void;
-  disableCaching: boolean;
+  disableCaching?: boolean;
   wrapperStyle?: CSSProperties;
 }
 

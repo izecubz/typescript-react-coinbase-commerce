@@ -6,13 +6,13 @@ export interface PopupFrameProps {
   checkoutId?: string;
   chargeId?: string;
   customMetadata?: string;
-  onLoad: () => void;
+  onLoad?: () => void;
   onChargeSuccess?: (messageData: MessageData) => void;
   onChargeFailure?: (messageData: MessageData) => void;
   onPaymentDetected?: (messageData: MessageData) => void;
-  onError: (messageData: MessageData) => void;
-  onModalClose: () => void;
-  disableCaching: boolean;
+  onError?: (messageData: MessageData) => void;
+  onModalClose?: () => void;
+  disableCaching?: boolean;
 }
 
 interface SrcParams {
@@ -102,7 +102,7 @@ export const PopupFrame: React.FC<PopupFrameProps> = (props) => {
       const params: SrcParams = {
         origin: hostName,
         buttonId: uuid,
-        cacheDisabled: disableCaching,
+        cacheDisabled: disableCaching ?? false,
       };
 
       let custom = "";
