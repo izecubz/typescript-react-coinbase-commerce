@@ -1,1 +1,1 @@
-# react-coinbase-commerce-ts
+# typescript-react-coinbase-commerce
