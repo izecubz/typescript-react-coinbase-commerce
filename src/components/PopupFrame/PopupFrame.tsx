@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { generateUUID } from "../../lib/utils";
 import type { MessageData } from "../../lib/types";
 
@@ -132,7 +132,7 @@ export const PopupFrame: React.FC<PopupFrameProps> = (props) => {
     return () => {
       window.removeEventListener("message", handleMessage);
     };
-  }, [props]);
+  }, []);
 
   const handleIFrameLoaded = () => {
     setLoading(false);

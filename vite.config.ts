@@ -13,6 +13,9 @@ export default defineConfig(() => ({
       include: ["src"],
     }),
   ],
+  server: {
+    port: 4040,
+  },
   build: {
     lib: {
       entry: resolve("src", "index.ts"),

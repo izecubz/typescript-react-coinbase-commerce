@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from "react";
+import { CSSProperties, useState } from "react";
 import type { MessageData } from "../../lib/types";
 import { StyledButton } from "../StyledButton";
 import { PopupFrame } from "../PopupFrame";
