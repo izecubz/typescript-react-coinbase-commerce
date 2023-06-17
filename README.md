@@ -15,10 +15,15 @@ Install the component using your favorite package manager. The example below use
 ## Usage/Examples
 
 ```typescript jsx
-// In progress
+import { CoinbaseCommerceButton } from "typescript-react-coinbase-commerce";
 
 function App() {
-  return <CoinbaseCommerceButton />
+  return (
+    <CoinbaseCommerceButton
+      styled
+      checkoutId="checkout-id-from-coinbase-commerce-dashboard"
+    />
+  );
 }
 ```
 
@@ -28,16 +33,18 @@ function App() {
 #### CoinbaseCommerceButton
 Below are additional types that are added on top of the regular `<button>` component.
 
-| Parameter           | Type                  | Required                    | Description                                                           |
-|:--------------------|:----------------------|:----------------------------|:----------------------------------------------------------------------|
-| `checkoutId`        | `string`              | **Yes**, if no `chargeId`   | Checkout ID from Coinbase Dashboard                                   |
-| `chargeId`          | `string`              | **Yes**, if no `checkoutId` | Charge ID generated from Coinbase API                                 |
-| `customMetadata`    | `string`              | No                          | Additional metadata passed to checkout                                |
-| `onChargeSuccess`   | `(MessageData)=>void` | No                          | On payment success                                                    |
-| `onChargeFailure`   | `(MessageData)=>void` | No                          | On payment failure                                                    |
-| `onPaymentDetected` | `(MessageData)=>void` | No                          | On payment detected                                                   |
-| `onModalClosed`     | `()=>void`            | No                          | When the checkout popover is closed                                   |
-| `disableCaching`    | `boolean`             | No                          | Cache will not be saved when the checkout is closed, default: `false` |
+| Parameter           | Type                  | Required                    | Default | Description                                                                 |
+|:--------------------|:----------------------|:----------------------------|:--------|:----------------------------------------------------------------------------|
+| `checkoutId`        | `string`              | **Yes**, if no `chargeId`   | `null`  | Checkout ID from Coinbase Dashboard                                         |
+| `chargeId`          | `string`              | **Yes**, if no `checkoutId` | `null`  | Charge ID generated from Coinbase API                                       |
+| `buttonRef`         | `React.RefObject`     | No                          | `null`  | Ref to the underlying `<button>` component                                  |
+| `frameRef`          | `React.RefObject`     | No                          | `null`  | Ref to the underlying `<iframe>` component                                  |
+| `customMetadata`    | `string`              | No                          | `null`  | Additional metadata passed to checkout                                      |
+| `onChargeSuccess`   | `(MessageData)=>void` | No                          | `null`  | On payment success                                                          |
+| `onChargeFailure`   | `(MessageData)=>void` | No                          | `null`  | On payment failure                                                          |
+| `onPaymentDetected` | `(MessageData)=>void` | No                          | `null`  | On payment detected                                                         |
+| `onModalClosed`     | `()=>void`            | No                          | `null`  | When the checkout popover is closed                                         |
+| `disableCaching`    | `boolean`             | No                          | `false` | If cache will be saved when the checkout was clicked off without cancelling |
 
 **Warning:** If `disableCaching` is set to true, users that accidentally close their payment windows will be unable to see their transaction's status upon reopening.
 ## License

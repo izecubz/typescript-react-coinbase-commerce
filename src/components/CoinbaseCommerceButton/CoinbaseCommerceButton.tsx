@@ -16,6 +16,8 @@ export const CoinbaseCommerceButton: React.FC<CoinbaseCommerceButtonProps> = ({
   chargeId,
   onPaymentDetected,
   disableCaching = false,
+  buttonRef,
+  frameRef,
   ...props
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -81,10 +83,11 @@ export const CoinbaseCommerceButton: React.FC<CoinbaseCommerceButtonProps> = ({
           e.preventDefault();
         }}
       >
-        <Button {...buttonProps} onClick={handleButtonClick} />
+        <Button ref={buttonRef} {...buttonProps} onClick={handleButtonClick} />
       </a>
       {showModal && (
         <PopupFrame
+          ref={frameRef}
           {...frameProps}
           onModalClose={handleModalClose}
           onError={handleError}

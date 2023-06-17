@@ -1,4 +1,4 @@
-import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
+import type { CSSProperties, HTMLAttributes, ReactNode, Ref } from "react";
 
 type ButtonPropsStyled = {
   styled: true;
@@ -14,5 +14,6 @@ type ButtonPropsWithClassName = {
 
 export type ButtonProps = (ButtonPropsStyled | ButtonPropsWithClassName) &
   HTMLAttributes<HTMLButtonElement> & {
+    ref?: Ref<HTMLButtonElement>;
     children?: ReactNode;
   };

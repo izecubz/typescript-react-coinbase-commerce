@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import type { ButtonProps } from "./Button.types";
 import styled from "styled-components";
 
@@ -40,18 +40,17 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-export const Button: React.FC<ButtonProps> = ({
-  children,
-  styled,
-  className,
-  ...props
-}) =>
-  styled ? (
-    <StyledButton {...props} type="button">
+export const Button: React.FC<ButtonProps> = forwardRef(function Button(
+  { children, styled, className, ...props },
+  ref
+) {
+  return styled ? (
+    <StyledButton ref={ref} {...props} type="button">
       {children ?? "Buy with Crypto"}
     </StyledButton>
   ) : (
-    <button {...props} type="button">
+    <button ref={ref} {...props} type="button">
       {children ?? "Buy with Crypto"}
     </button>
   );
+});

@@ -1,7 +1,9 @@
 import { MessageData } from "../../lib/types";
-import { CSSProperties } from "react";
+import { CSSProperties, Ref } from "react";
 
 interface CoinbaseCommerceButtonPropsNonExclusive {
+  buttonRef?: Ref<HTMLButtonElement>;
+  frameRef?: Ref<HTMLIFrameElement>;
   checkoutId?: string;
   chargeId?: string;
   customMetadata?: string;
