@@ -1,6 +1,6 @@
 // Source: https://stackoverflow.com/a/2117523
 export function generateUUID(): string {
-  if (typeof crypto !== "undefined" && crypto.randomUUID) {
+  if (typeof crypto !== "undefined" && crypto.randomUUID !== undefined) {
     return crypto.randomUUID();
   }
 

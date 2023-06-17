@@ -1,30 +1,60 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { generateUUID } from "../../lib/utils";
-import type { MessageData } from "../../lib/types";
+import type { PopupFrameProps, SrcParams } from "./PopupFrame.types";
+import styled from "styled-components";
 
-export interface PopupFrameProps {
-  checkoutId?: string;
-  chargeId?: string;
-  customMetadata?: string;
-  onLoad?: () => void;
-  onChargeSuccess?: (messageData: MessageData) => void;
-  onChargeFailure?: (messageData: MessageData) => void;
-  onPaymentDetected?: (messageData: MessageData) => void;
-  onError?: (messageData: MessageData) => void;
-  onModalClose?: () => void;
-  disableCaching?: boolean;
-}
+const ContainerDiv = styled.div`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99998;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
 
-interface SrcParams {
-  origin: string;
-  buttonId: string;
-  custom?: string;
-  cacheDisabled: boolean;
-}
+const Spinner = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: -20px;
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(6, 103, 208, 0.05);
+  border-radius: 100%;
+  border-top-color: white;
+  animation: spin 1s infinite linear;
+  @keyframes spin {
+    33% {
+      transform: rotate(90deg);
+    }
+    66% {
+      transform: rotate(270deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+const StyledIframe = styled.iframe`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  border: none;
+`;
 
 export const PopupFrame: React.FC<PopupFrameProps> = (props) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [src, setSrc] = useState<string | null>(null);
+  const [src, setSrc] = useState<string | undefined>();
   const origin = "https://commerce.coinbase.com";
   const uuid: string = generateUUID();
 
@@ -65,14 +95,13 @@ export const PopupFrame: React.FC<PopupFrameProps> = (props) => {
       }
     };
 
-    const isValidMessage = (msg: MessageEvent): boolean => {
-      return msg.origin === origin && msg.data.buttonId === uuid;
-    };
+    const isValidMessage = (msg: MessageEvent): boolean =>
+      msg.origin === origin && msg.data.buttonId === uuid;
 
     const buildSrc = (hostName: string): string => {
       const { checkoutId, chargeId, customMetadata, disableCaching } = props;
 
-      function encodeURIParams(params: SrcParams): string {
+      function encodeUriParams(params: SrcParams): string {
         const encoded: string[] = [];
         const quote = window.encodeURIComponent;
         const keys = Object.keys(params);
@@ -106,11 +135,7 @@ export const PopupFrame: React.FC<PopupFrameProps> = (props) => {
       };
 
       let custom = "";
-      if (customMetadata && typeof customMetadata !== "string") {
-        console.error(
-          'Received customMetadata not of "string" type. Ignoring.'
-        );
-      } else if (customMetadata) {
+      if (customMetadata) {
         custom = customMetadata;
       }
 
@@ -118,7 +143,7 @@ export const PopupFrame: React.FC<PopupFrameProps> = (props) => {
         params.custom = custom;
       }
 
-      return `${origin}/embed/${widgetType}/${encodeURI(id)}?${encodeURIParams(
+      return `${origin}/embed/${widgetType}/${encodeURI(id)}?${encodeUriParams(
         params
       )}`;
     };
@@ -134,25 +159,15 @@ export const PopupFrame: React.FC<PopupFrameProps> = (props) => {
     };
   }, []);
 
-  const handleIFrameLoaded = () => {
+  const handleFrameLoaded = () => {
     setLoading(false);
     props.onLoad?.();
   };
 
   return (
-    <div className="fixed left-0 right-0 top-0 bottom-0 w-full h-full z-[99998] bg-black/50">
-      {(loading || src === null) && (
-        <div className="absolute top-1/2 left-1/2 -mt-20 -ml-20 w-40 h-40 border-3 border-solid border-blue-200 rounded-full border-t-white animate-spin" />
-      )}
-      {src !== null && (
-        <iframe
-          onLoad={handleIFrameLoaded}
-          className="fixed left-0 right-0 top-0 bottom-0 w-full h-full !z-[99999] border-none"
-          src={src}
-          scrolling="no"
-          frameBorder="no"
-        />
-      )}
-    </div>
+    <ContainerDiv>
+      {(loading || src === null) && <Spinner />}
+      {src !== null && <StyledIframe onLoad={handleFrameLoaded} src={src} />}
+    </ContainerDiv>
   );
 };

@@ -9,9 +9,17 @@ const meta: Meta<typeof CoinbaseCommerceButton> = {
 export default meta;
 type Story = StoryObj<typeof CoinbaseCommerceButton>;
 
-export const CoinbaseCommerceButtonStory: Story = {
+export const Default: Story = {
   args: {
     checkoutId: "c31bcc59-5983-4d7e-ab8c-18a2c3d583d5",
     styled: true,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    checkoutId: "c31bcc59-5983-4d7e-ab8c-18a2c3d583d5",
+    styled: true,
+    disabled: true,
   },
 };

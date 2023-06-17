@@ -1,38 +1,8 @@
-import { CSSProperties, useState } from "react";
+import React, { useState } from "react";
 import type { MessageData } from "../../lib/types";
-import { StyledButton } from "../StyledButton";
 import { PopupFrame } from "../PopupFrame";
-
-interface CoinbaseCommerceButtonPropsNonExclusive {
-  checkoutId?: string;
-  chargeId?: string;
-  customMetadata?: string;
-  styled?: boolean;
-  onLoad?: () => void;
-  onChargeSuccess?: (messageData: MessageData) => void;
-  onChargeFailure?: (messageData: MessageData) => void;
-  onPaymentDetected?: (messageData: MessageData) => void;
-  onModalClosed?: () => void;
-  disableCaching?: boolean;
-  wrapperStyle?: CSSProperties;
-}
-
-type XOR<T, U> = T | U extends object
-  ? (Without<T, U> & U) | (Without<U, T> & T)
-  : T | U;
-
-type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
-
-type CoinbaseCommerceButtonPropsWithExclusiveId = XOR<
-  Pick<CoinbaseCommerceButtonPropsNonExclusive, "checkoutId">,
-  Pick<CoinbaseCommerceButtonPropsNonExclusive, "chargeId">
->;
-
-export type CoinbaseCommerceButtonProps = Omit<
-  CoinbaseCommerceButtonPropsNonExclusive,
-  "checkoutId" | "chargeId"
-> &
-  CoinbaseCommerceButtonPropsWithExclusiveId;
+import type { CoinbaseCommerceButtonProps } from "./CoinbaseCommerceButton.types";
+import { Button } from "../Button";
 
 /*
  * The CoinbaseCommerceButton component is a wrapper around the Coinbase Commerce embeddable checkout.
@@ -56,14 +26,14 @@ export const CoinbaseCommerceButton: React.FC<CoinbaseCommerceButtonProps> = ({
 
   const handleModalClose = () => {
     setShowModal(false);
-    if (props.onModalClosed) {
+    if (props.onModalClosed != null) {
       props.onModalClosed();
     }
   };
 
   const getButtonProps = (props: CoinbaseCommerceButtonProps) => {
     const buttonProps = { ...props };
-    const ignoredProps: (keyof CoinbaseCommerceButtonProps)[] = [
+    const ignoredProps: Array<keyof CoinbaseCommerceButtonProps> = [
       "onLoad",
       "onChargeSuccess",
       "onChargeFailure",
@@ -99,27 +69,7 @@ export const CoinbaseCommerceButton: React.FC<CoinbaseCommerceButtonProps> = ({
     disableCaching,
   };
 
-  const buttonProps = getButtonProps(
-    props as
-      | (Omit<
-          CoinbaseCommerceButtonPropsNonExclusive,
-          "checkoutId" | "chargeId"
-        > &
-          Without<
-            Pick<CoinbaseCommerceButtonPropsNonExclusive, "checkoutId">,
-            Pick<CoinbaseCommerceButtonPropsNonExclusive, "chargeId">
-          > &
-          Pick<CoinbaseCommerceButtonPropsNonExclusive, "chargeId">)
-      | (Omit<
-          CoinbaseCommerceButtonPropsNonExclusive,
-          "checkoutId" | "chargeId"
-        > &
-          Without<
-            Pick<CoinbaseCommerceButtonPropsNonExclusive, "chargeId">,
-            Pick<CoinbaseCommerceButtonPropsNonExclusive, "checkoutId">
-          > &
-          Pick<CoinbaseCommerceButtonPropsNonExclusive, "checkoutId">)
-  );
+  const buttonProps = getButtonProps(props as CoinbaseCommerceButtonProps);
 
   return (
     <div style={props.wrapperStyle}>
@@ -127,9 +77,11 @@ export const CoinbaseCommerceButton: React.FC<CoinbaseCommerceButtonProps> = ({
         href="https://commerce.coinbase.com"
         rel="external"
         title="Pay with Bitcoin, Bitcoin Cash, DAI, Litecoin, Dogecoin, Ethereum, or USD Coin"
-        onClick={(e) => e.preventDefault()}
+        onClick={(e) => {
+          e.preventDefault();
+        }}
       >
-        <StyledButton {...buttonProps} onClick={handleButtonClick} />
+        <Button {...buttonProps} onClick={handleButtonClick} />
       </a>
       {showModal && (
         <PopupFrame

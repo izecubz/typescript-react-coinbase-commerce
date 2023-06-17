@@ -10,25 +10,25 @@ export type PaymentStatus = "NEW" | "PENDING" | "CONFIRMED" | "FAILED";
 export type FiatCurrency = string;
 export type CryptoCurrency = string;
 
-export type CryptoMoney = {
+export interface CryptoMoney {
   amount: string;
   currency: CryptoCurrency;
-};
-export type FiatMoney = {
+}
+export interface FiatMoney {
   amount: string;
   currency: FiatCurrency;
-};
+}
 
-export type ChargePricing = {
+export interface ChargePricing {
   local: FiatMoney;
-  bitcoin?: CryptoMoney | null;
-  bitcoincash?: CryptoMoney | null;
-  ethereum?: CryptoMoney | null;
-  litecoin?: CryptoMoney | null;
-  dogecoin?: CryptoMoney | null;
-};
+  bitcoin?: CryptoMoney | undefined;
+  bitcoincash?: CryptoMoney | undefined;
+  ethereum?: CryptoMoney | undefined;
+  litecoin?: CryptoMoney | undefined;
+  dogecoin?: CryptoMoney | undefined;
+}
 
-export type Payment = {
+export interface Payment {
   network: Network;
   transactionId: string;
   status: PaymentStatus;
@@ -42,32 +42,30 @@ export type Payment = {
     confirmations: number;
     confirmationsRequired: number;
   };
-};
+}
 
 export type ChargeStatus = "NEW" | "UNRESOLVED" | "RESOLVED" | "EXPIRED";
 
-export type ChargeContext = {
+export interface ChargeContext {
   timeline: ChargeState[];
   total: {
     local: FiatMoney;
     crypto: CryptoMoney;
   };
-  metadata?: {
-    [key: string]: string;
-  };
-};
+  metadata?: Record<string, string>;
+}
 
-export type ChargeState = {
+export interface ChargeState {
   status: ChargeStatus;
-  context?: ChargeContext | null;
+  context?: ChargeContext | undefined;
   time: string;
   payment?: {
     network: Network;
     transactionId: string;
   };
-};
+}
 
-export type Charge = {
+export interface Charge {
   code: OrderCode;
   createdAt: string;
   confirmedAt?: string;
@@ -83,9 +81,9 @@ export type Charge = {
   checkout?: { id: string };
   redirectUrl?: string;
   thirdPartyProvider?: string;
-};
+}
 
-export type MessageData = {
+export interface MessageData {
   event: "charge:created" | "charge:failed";
   charge: Charge;
-};
+}
