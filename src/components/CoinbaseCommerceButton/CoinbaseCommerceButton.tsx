@@ -74,8 +74,9 @@ export const CoinbaseCommerceButton: React.FC<CoinbaseCommerceButtonProps> = ({
   const buttonProps = getButtonProps(props as CoinbaseCommerceButtonProps);
 
   return (
-    <div style={props.wrapperStyle}>
+    <div id="coinbase-commerce-main-container" style={props.wrapperStyle}>
       <a
+        id="coinbase-commerce-button-link"
         href="https://commerce.coinbase.com"
         rel="external"
         title="Pay with Bitcoin, Bitcoin Cash, DAI, Litecoin, Dogecoin, Ethereum, or USD Coin"
@@ -83,10 +84,17 @@ export const CoinbaseCommerceButton: React.FC<CoinbaseCommerceButtonProps> = ({
           e.preventDefault();
         }}
       >
-        <Button ref={buttonRef} {...buttonProps} onClick={handleButtonClick} />
+        <Button
+          id="coinbase-commerce-button"
+          ref={buttonRef}
+          {...buttonProps}
+          onClick={handleButtonClick}
+        />
       </a>
       {showModal && (
         <PopupFrame
+          frameId="coinbase-commerce-modal"
+          containerId="coinbase-commerce-modal-container"
           ref={frameRef}
           {...frameProps}
           onModalClose={handleModalClose}

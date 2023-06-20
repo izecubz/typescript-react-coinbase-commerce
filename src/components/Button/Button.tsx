@@ -23,17 +23,21 @@ const StyledButton = styled.button<ButtonProps>`
   -webkit-user-select: none;
   touch-action: manipulation;
   width: fit-content;
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
+
   &:focus {
     outline: 0;
   }
+
   &:hover {
     background-color: #0a46e4;
     border-color: #0a46e4;
   }
+
   &:active {
     background-color: #0039d7;
     border-color: #0039d7;
@@ -45,11 +49,11 @@ export const Button: React.FC<ButtonProps> = forwardRef(function Button(
   ref
 ) {
   return styled ? (
-    <StyledButton ref={ref} {...props} type="button">
+    <StyledButton id={props.id} ref={ref} {...props} type="button">
       {children ?? "Buy with Crypto"}
     </StyledButton>
   ) : (
-    <button ref={ref} {...props} type="button">
+    <button id={props.id} ref={ref} {...props} type="button">
       {children ?? "Buy with Crypto"}
     </button>
   );

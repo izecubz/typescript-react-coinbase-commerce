@@ -6,10 +6,13 @@ TypeScript rewrite of `react-coinbase-commerce` (unmaintained as of writing). Th
 
 ## Installation
 
-Install the component using your favorite package manager. The example below uses PNPM.
-
+Install the component using your favorite package manager.
 ```bash
-  pnpm i typescript-react-coinbase-commerce
+pnpm i typescript-react-coinbase-commerce
+# OR
+yarn add typescript-react-coinbase-commerce
+# OR
+npm i typescript-react-coinbase-commerce
 ```
     
 ## Usage/Examples

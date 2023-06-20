@@ -166,10 +166,15 @@ export const PopupFrame: React.FC<PopupFrameProps> = forwardRef(
     };
 
     return (
-      <ContainerDiv>
+      <ContainerDiv id={props.containerId}>
         {(loading || src === null) && <Spinner />}
         {src !== null && (
-          <StyledIframe ref={ref} onLoad={handleFrameLoaded} src={src} />
+          <StyledIframe
+            id={props.frameId}
+            ref={ref}
+            onLoad={handleFrameLoaded}
+            src={src}
+          />
         )}
       </ContainerDiv>
     );

@@ -1,7 +1,9 @@
-import { type MessageData } from "../../lib/types";
-import { Ref } from "react";
+import type { MessageData } from "../../lib/types";
+import type { Ref } from "react";
 
 export interface PopupFrameProps {
+  frameId?: string;
+  containerId?: string;
   ref?: Ref<HTMLIFrameElement>;
   checkoutId?: string;
   chargeId?: string;

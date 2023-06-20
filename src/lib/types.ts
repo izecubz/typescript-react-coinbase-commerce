@@ -14,6 +14,7 @@ export interface CryptoMoney {
   amount: string;
   currency: CryptoCurrency;
 }
+
 export interface FiatMoney {
   amount: string;
   currency: FiatCurrency;

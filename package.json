@@ -1,7 +1,7 @@
 {
   "name": "typescript-react-coinbase-commerce",
   "description": "Coinbase Commerce React rewritten in TypeScript",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "Apache-2.0",
   "scripts": {
     "storybook": "storybook dev -p 6006",
