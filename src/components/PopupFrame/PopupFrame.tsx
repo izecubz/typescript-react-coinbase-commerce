@@ -1,4 +1,5 @@
 import React, { forwardRef, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { generateUUID } from "../../lib/utils";
 import type { PopupFrameProps, SrcParams } from "./PopupFrame.types";
 import styled from "styled-components";
@@ -165,7 +166,7 @@ export const PopupFrame: React.FC<PopupFrameProps> = forwardRef(
       props.onLoad?.();
     };
 
-    return (
+    return createPortal(
       <ContainerDiv id={props.containerId}>
         {(loading || src === null) && <Spinner />}
         {src !== null && (
@@ -176,7 +177,8 @@ export const PopupFrame: React.FC<PopupFrameProps> = forwardRef(
             src={src}
           />
         )}
-      </ContainerDiv>
+      </ContainerDiv>,
+      document.body
     );
   }
 );
