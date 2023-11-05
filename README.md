@@ -3,10 +3,10 @@
 
 TypeScript rewrite of `react-coinbase-commerce` (unmaintained as of writing). This is my first attempt at making a typescript and react component library. As such I am thankful for any contributions to this repository.
 
-
 ## Installation
 
 Install the component using your favorite package manager.
+
 ```bash
 pnpm i typescript-react-coinbase-commerce
 # OR
@@ -14,7 +14,7 @@ yarn add typescript-react-coinbase-commerce
 # OR
 npm i typescript-react-coinbase-commerce
 ```
-    
+
 ## Usage/Examples
 
 ```typescript jsx
@@ -30,10 +30,10 @@ function App() {
 }
 ```
 
-
 ## API Reference
 
 #### CoinbaseCommerceButton
+
 Below are additional types that are added on top of the regular `<button>` component.
 
 | Parameter           | Type                  | Required                    | Default | Description                                                                 |
@@ -50,7 +50,7 @@ Below are additional types that are added on top of the regular `<button>` compo
 | `disableCaching`    | `boolean`             | No                          | `false` | If cache will be saved when the checkout was clicked off without cancelling |
 
 **Warning:** If `disableCaching` is set to true, users that accidentally close their payment windows will be unable to see their transaction's status upon reopening.
+
 ## License
 
 [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
-

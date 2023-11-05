@@ -1,7 +1,11 @@
 {
   "name": "typescript-react-coinbase-commerce",
   "description": "Coinbase Commerce React rewritten in TypeScript",
-  "version": "1.2.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/izecubz/typescript-react-coinbase-commerce"
+  },
+  "version": "1.2.3",
   "license": "Apache-2.0",
   "scripts": {
     "storybook": "storybook dev -p 6006",
@@ -24,9 +28,9 @@
     "dist"
   ],
   "devDependencies": {
-    "@babel/preset-env": "^7.22.5",
-    "@babel/preset-react": "^7.22.5",
-    "@babel/preset-typescript": "^7.22.5",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-react": "^7.22.15",
+    "@babel/preset-typescript": "^7.23.2",
     "@rollup/plugin-commonjs": "^25.0.1",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-terser": "^0.4.3",
