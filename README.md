@@ -1,5 +1,6 @@
-
 # typescript-react-coinbase-commerce
+
+> ⚠️ **WARNING**: This package is no longer maintained. For a modern, actively maintained alternative, please use [@coinbase/onchainkit](https://onchainkit.xyz/checkout/checkout) which provides enhanced features and ongoing support.
 
 TypeScript rewrite of `react-coinbase-commerce` (unmaintained as of writing). This is my first attempt at making a typescript and react component library. As such I am thankful for any contributions to this repository.
 
